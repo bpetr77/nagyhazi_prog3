@@ -1,9 +1,7 @@
 package kigyok;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Font;
-import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -30,7 +28,7 @@ public class SnakeGame extends JPanel implements ActionListener{
 	JFrame frame;
 	private int speed = 100;
 	Timer timer;
-	
+	private boolean titelOver = false;
     public SnakeGame(JFrame frame, Player player1) {
     	this.frame = frame;
     	walls = new Walls();
@@ -143,6 +141,7 @@ public class SnakeGame extends JPanel implements ActionListener{
         }while (walls.Fruitcollide(fruit.getLocation()));
         fruitEaten = false;
     	}
+    	
     }
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -151,6 +150,7 @@ public class SnakeGame extends JPanel implements ActionListener{
     	
     	checkCollision();
         repaint(); 
+        //System.out.println(titelOver);
     }
 
     @Override
@@ -163,20 +163,48 @@ public class SnakeGame extends JPanel implements ActionListener{
         walls.draw(g);
         
         g.setColor(Color.BLACK);
-        g.setFont(new Font("Arial", Font.PLAIN, 20));
+        g.setFont(new Font("Arial", Font.BOLD, 20));
         g.drawString("Score: " + player.getScore(), SCREEN_WIDTH - 100, 30);
         timer.setDelay(speed);
         
-        }else {
+        }else if(gameOver && titelOver == false){
         	g.setColor(Color.BLACK);
-        	g.setFont(new Font("font", Font.BOLD, 60));
+        	g.setFont(new Font("Arial", Font.BOLD, 60));
         	g.drawString("Game Over", SCREEN_WIDTH / 2 - 154, SCREEN_HEIGHT / 2);
+        	titelOver = true;
+
+        	}else if(titelOver) {
+            	try {
+    				Thread.sleep(2000);
+    			} catch (InterruptedException e) {
+    				// TODO Auto-generated catch block
+    				e.printStackTrace();
+    			}
+        		player.newPlayer();
+    	        MenuPanel menuPanel = new MenuPanel(frame, player);
+
+    	        // Az összes komponens eltávolítása a JFrame-ből
+    	        frame.getContentPane().removeAll();
+
+    	        // Az új MenuPanel hozzáadása a JFrame-hez
+    	        frame.getContentPane().add(menuPanel);
+
+    	        // A megjelenítés frissítése
+    	        frame.getContentPane().revalidate();
+    	        frame.getContentPane().repaint();
+
+    	        // A fókusz beállítása a MenuPanel-re
+    	        menuPanel.requestFocusInWindow();
+        	}
+        
         	
-        	Timer timer = new Timer(700, new ActionListener() {
+        	
+        	/*Timer timer = new Timer(700, new ActionListener() {
         	    @Override
         	    public void actionPerformed(ActionEvent e) {
         	        // Az időzítő lejártakor futó kód
         	        // Az új MenuPanel példány létrehozása
+        	    	player.newPlayer();
         	        MenuPanel menuPanel = new MenuPanel(frame, player);
 
         	        // Az összes komponens eltávolítása a JFrame-ből
@@ -196,7 +224,7 @@ public class SnakeGame extends JPanel implements ActionListener{
 
         	// Időzítő indítása
         	timer.setRepeats(false); // Csak egyszer fut le
-        	timer.start();
+        	timer.start();*/
         
     	/*for(int i=0;i<SCREEN_HEIGHT/UNIT_SIZE;i++) {
     		g.setColor(Color.black);
@@ -204,7 +232,6 @@ public class SnakeGame extends JPanel implements ActionListener{
 			g.drawLine(0, i*UNIT_SIZE, SCREEN_WIDTH, i*UNIT_SIZE);
 		}*/
   
-    }
     }
     
     
