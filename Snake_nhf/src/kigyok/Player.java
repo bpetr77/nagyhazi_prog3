@@ -33,21 +33,4 @@ public class Player implements Serializable{
 		score = 0;
 	}
 	
-    // Új metódusok a fájlba írásra és onnan olvasásra
-    public void writeToFile(String filename) {
-        try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(filename))) {
-            outputStream.writeObject(this);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static Player readFromFile(String filename) {
-        try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(filename))) {
-            return (Player) inputStream.readObject();
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
 }

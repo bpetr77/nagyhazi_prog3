@@ -8,6 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Random;
 
 import javax.swing.JFrame;
@@ -26,11 +28,13 @@ public class SnakeGame extends JPanel implements ActionListener{
 	Snake snake;
 	Player player;
 	JFrame frame;
+	//Top5 top5;
 	private int speed = 100;
 	Timer timer;
 	private boolean titelOver = false;
     public SnakeGame(JFrame frame, Player player1) {
     	this.frame = frame;
+    	//top5 = new Top5();
     	walls = new Walls();
     	snake = new Snake();
     	fruit = new Apple();
@@ -172,6 +176,10 @@ public class SnakeGame extends JPanel implements ActionListener{
         	g.setFont(new Font("Arial", Font.BOLD, 60));
         	g.drawString("Game Over", SCREEN_WIDTH / 2 - 154, SCREEN_HEIGHT / 2);
         	titelOver = true;
+        	Top5.updateTop5(player);
+        	/*ArrayList<Player> lista = Top5.readTop5FromFile();
+        	for(int i = 0; i < lista.size(); i++)
+        		System.out.println(lista.get(i).getName() + lista.get(i).getScore());*/
 
         	}else if(titelOver) {
             	try {

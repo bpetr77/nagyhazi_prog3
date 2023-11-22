@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.LayoutManager;
+import java.util.LinkedList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -21,9 +22,9 @@ public class MenuPanel extends JPanel {
 		JButton startButton = new JButton ("Start Game");
 		JButton Top5 = new JButton ("Top5");
 		JButton exit = new JButton ("Exit");
-		//JTextField nameField = new JTextField(20);
 		JLabel TextLabel = new JLabel ("Add meg a neved: ");
 		JLabel Caption = new JLabel ("SNAKE");
+		
 		
 		Font buttonFont = new Font(Font.SERIF, Font.BOLD, 21);
         startButton.setFont(buttonFont);
@@ -31,7 +32,6 @@ public class MenuPanel extends JPanel {
         exit.setFont(buttonFont);
         
         Caption.setFont(new Font(Font.MONOSPACED, Font.BOLD, 60));
-        //Caption.setFont(CaptionFont);
         nameField.setFont(new Font(Font.MONOSPACED, Font.CENTER_BASELINE, 20));
         
         Font TextFont = new Font(Font.MONOSPACED, Font.CENTER_BASELINE, 20);
@@ -52,8 +52,9 @@ public class MenuPanel extends JPanel {
         // Adj hozzá akciókezelőt a "Start Game" gombhoz
         startButton.addActionListener(e -> startGame(frame, player));
         exit.addActionListener(e -> System.exit(0));
+        Top5.addActionListener(e -> showTop5(frame));
 
-    //adjust size and set layout
+    //set layout
     setLayout (null);
 
     //add components
@@ -83,4 +84,17 @@ public class MenuPanel extends JPanel {
         snakeGame.requestFocusInWindow();
         
     }
-}
+    private void showTop5(JFrame frame) {
+        Top5panel top5Panel = new Top5panel();
+        top5Panel.showTop5(frame);  // Az adatok megjelenítése a Top5Panel objektumban
+
+        // A Top5Panel hozzáadása a meglévő JFrame-hez
+        frame.getContentPane().removeAll();
+        frame.getContentPane().add(top5Panel);
+        frame.getContentPane().revalidate();
+        frame.getContentPane().repaint();
+    }
+    
+
+    }
+
