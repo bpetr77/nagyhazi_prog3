@@ -28,13 +28,11 @@ public class SnakeGame extends JPanel implements ActionListener{
 	Snake snake;
 	Player player;
 	JFrame frame;
-	//Top5 top5;
 	private int speed = 100;
 	Timer timer;
 	private boolean titelOver = false;
     public SnakeGame(JFrame frame, Player player1) {
     	this.frame = frame;
-    	//top5 = new Top5();
     	walls = new Walls();
     	snake = new Snake();
     	fruit = new Apple();
@@ -51,55 +49,53 @@ public class SnakeGame extends JPanel implements ActionListener{
     	Point head = snake.getbodyidx(0);
     	if(head != null) {
     		if (head.equals(fruit.getLocation())) {
-    			if(fruit.gettype() == 1) {
-    				snake.grow();
-    				spawnFruit();
-    				player.setScore(player.getScore() + 1);
-    				fruitEaten = true;  
-    				speed = 100;// Gyümölcs evés esemény
-    				//orangeeaten = false;
-    				
-    			}else if(fruit.gettype() == 2) {
-    				snake.grow();
-    				snake.grow();
-    				spawnFruit();
-    				player.setScore(player.getScore() + 2);
-    				fruitEaten = true;
-    				speed = 100;
-    				//orangeeaten = false;
-    				
-    			}else if(fruit.gettype() == 3) {
-    				if(snake.getLength() % 2 == 0) {
-    				//snake.setLength(snake.getLength() / 2);
-    		        int newLength = snake.getLength() / 2;
-    		        for (int i = snake.getLength() - 1; i >= newLength; i--) {
-    		            snake.getBody().remove(snake.getbodyidx(i));
-    		        }
-    		        snake.setLength(newLength);
-    				spawnFruit();
-    				player.setScore(player.getScore() + 1);
-    				fruitEaten = true;
-    				speed = 100;
-    				//orangeeaten = false;
-    				}else {
-    			        int newLength = (snake.getLength() + 1) / 2;
-    			        for (int i = snake.getLength() - 1; i >= newLength; i--) {
-    			            snake.getBody().remove(snake.getbodyidx(i));
-    			        }
-    			        snake.setLength(newLength);
-        				spawnFruit();
-        				player.setScore(player.getScore() + 1);
-        				fruitEaten = true;
-        				speed = 100;
-        				//orangeeaten = false;
-    				}
-    			}else if(fruit.gettype() == 4) {
-    				snake.grow();
-    				spawnFruit();
-    				player.setScore(player.getScore() + 1);
-    				fruitEaten = true;
-    				speed = 70;
-    				//orangeeaten = true;
+    			switch (fruit.gettype()) {
+	    		    case 1:
+	    		        snake.grow();
+	    		        spawnFruit();
+	    		        player.setScore(player.getScore() + 1);
+	    		        fruitEaten = true;
+	    		        speed = 100;
+	    		        break;
+    		    
+	    		    case 2:
+	    		        snake.grow();
+	    		        snake.grow();
+	    		        spawnFruit();
+	    		        player.setScore(player.getScore() + 2);
+	    		        fruitEaten = true;
+	    		        speed = 100;
+	    		        break;
+    		    
+	    		    case 3:
+	    		        int newLength;
+	    		        if (snake.getLength() % 2 == 0) {
+	    		            newLength = snake.getLength() / 2;
+	    		        } else {
+	    		            newLength = (snake.getLength() + 1) / 2;
+	    		        }
+	    		        
+	    		        for (int i = snake.getLength() - 1; i >= newLength; i--) {
+	    		            snake.getBody().remove(snake.getbodyidx(i));
+	    		        }
+	    		        snake.setLength(newLength);
+	    		        
+	    		        spawnFruit();
+	    		        player.setScore(player.getScore() + 1);
+	    		        fruitEaten = true;
+	    		        speed = 100;
+	    		        break;
+	    		    
+	    		    case 4:
+	    		        snake.grow();
+	    		        spawnFruit();
+	    		        player.setScore(player.getScore() + 1);
+	    		        fruitEaten = true;
+	    		        speed = 70;
+	    		        break;
+	    		    
+	    		    default:
+	    		        break;
     			}
         	}
     		
@@ -151,7 +147,6 @@ public class SnakeGame extends JPanel implements ActionListener{
     public void actionPerformed(ActionEvent e) {
     	spawnFruit();
     	snake.move();
-    	
     	checkCollision();
         repaint(); 
         //System.out.println(titelOver);
@@ -205,40 +200,6 @@ public class SnakeGame extends JPanel implements ActionListener{
     	        menuPanel.requestFocusInWindow();
         	}
         
-        	
-        	
-        	/*Timer timer = new Timer(700, new ActionListener() {
-        	    @Override
-        	    public void actionPerformed(ActionEvent e) {
-        	        // Az időzítő lejártakor futó kód
-        	        // Az új MenuPanel példány létrehozása
-        	    	player.newPlayer();
-        	        MenuPanel menuPanel = new MenuPanel(frame, player);
-
-        	        // Az összes komponens eltávolítása a JFrame-ből
-        	        frame.getContentPane().removeAll();
-
-        	        // Az új MenuPanel hozzáadása a JFrame-hez
-        	        frame.getContentPane().add(menuPanel);
-
-        	        // A megjelenítés frissítése
-        	        frame.getContentPane().revalidate();
-        	        frame.getContentPane().repaint();
-
-        	        // A fókusz beállítása a MenuPanel-re
-        	        menuPanel.requestFocusInWindow();
-        	    }
-        	});
-
-        	// Időzítő indítása
-        	timer.setRepeats(false); // Csak egyszer fut le
-        	timer.start();*/
-        
-    	/*for(int i=0;i<SCREEN_HEIGHT/UNIT_SIZE;i++) {
-    		g.setColor(Color.black);
-			g.drawLine(i*UNIT_SIZE, 0, i*UNIT_SIZE, SCREEN_HEIGHT);
-			g.drawLine(0, i*UNIT_SIZE, SCREEN_WIDTH, i*UNIT_SIZE);
-		}*/
   
     }
     
