@@ -18,20 +18,21 @@ public class MenuPanel extends JPanel {
 	
 	public MenuPanel(JFrame frame, Player player) {
 		 setBackground(new Color(170, 255, 228));
-    //construct components
+
 		JButton startButton = new JButton ("Start Game");
 		JButton Top5 = new JButton ("Top5");
 		JButton exit = new JButton ("Exit");
 		JLabel TextLabel = new JLabel ("Add meg a neved: ");
 		JLabel Caption = new JLabel ("SNAKE");
 		
-		
+		// Betűméret/stílus beállítása
 		Font buttonFont = new Font(Font.SERIF, Font.BOLD, 21);
         startButton.setFont(buttonFont);
         Top5.setFont(buttonFont);
         exit.setFont(buttonFont);
         
         Caption.setFont(new Font(Font.MONOSPACED, Font.BOLD, 60));
+        
         nameField.setFont(new Font(Font.MONOSPACED, Font.CENTER_BASELINE, 20));
         
         Font TextFont = new Font(Font.MONOSPACED, Font.CENTER_BASELINE, 20);
@@ -49,15 +50,15 @@ public class MenuPanel extends JPanel {
         exit.setBackground(new Color(150,20,20));
         nameField.setBackground(new Color(212, 255, 241));
 
-        // Adj hozzá akciókezelőt a "Start Game" gombhoz
+        //actionlistenerek a gombokhoz amik meghívják a megfelelő metódusokat
         startButton.addActionListener(e -> startGame(frame, player));
         exit.addActionListener(e -> System.exit(0));
         Top5.addActionListener(e -> showTop5(frame));
 
-    //set layout
+   
     setLayout (null);
 
-    //add components
+    //komponensek hozzáadása
     add (startButton);
     add (Top5);
     add (exit);
@@ -65,7 +66,7 @@ public class MenuPanel extends JPanel {
     add (TextLabel);
     add (Caption);
 
-    //set component bounds (only needed by Absolute Positioning)
+    //komponensek pozíciójának és éretének precíz beállítása
     startButton.setBounds (120, 130, 160, 50);
     exit.setBounds (465, 475, 90, 60);
     Top5.setBounds (335, 130, 160, 50);
@@ -73,6 +74,10 @@ public class MenuPanel extends JPanel {
     TextLabel.setBounds (35, 260, 220, 30);
     Caption.setBounds (210, 30, 235, 65);
 	}
+	
+	/**
+	 * A játék indítását végző metódus. Létrehozunk egy új SnakeGamet, majd eltávolítunk mindent a tábláról, hozzáadjuk a játékot.
+	 */
     private void startGame(JFrame frame, Player player) {
     	player.setName(nameField.getText());
         SnakeGame snakeGame = new SnakeGame(frame,player);
@@ -80,10 +85,10 @@ public class MenuPanel extends JPanel {
         frame.getContentPane().add(snakeGame);
         frame.getContentPane().revalidate();
         frame.getContentPane().repaint();
-        //snakeGame.setFocusable(true);
         snakeGame.requestFocusInWindow();
-        
     }
+    
+    //Top 5 játékos megjelenítése, egy új panel létrehozásával
     private void showTop5(JFrame frame) {
         Top5panel top5Panel = new Top5panel();
         top5Panel.showTop5(frame);  // Az adatok megjelenítése a Top5Panel objektumban

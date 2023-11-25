@@ -8,7 +8,7 @@ public class Lemon extends Fruit {
     public Lemon() {
         super();
     }
-
+    // A citrom elhelyezését végző metódus
     @Override
     public void spawnFruit() {
         Random rand = new Random();
@@ -17,14 +17,14 @@ public class Lemon extends Fruit {
         location.setLocation(x, y);
     }
 
-
+    // A citromot rajzoló metódus
 	@Override
     public void draw(Graphics g) {
 		g.setColor(new Color(255, 255, 0));
         g.fillOval(location.x, location.y, SnakeGame.UNIT_SIZE, SnakeGame.UNIT_SIZE);
         
     }
-    
+	// A citrom típusát visszaadó metódus
     @Override
     public int gettype() {
     	return 3;

@@ -8,7 +8,9 @@ public class Orange extends Fruit {
     public Orange() {
         super();
     }
-
+    
+    
+    // A narancs elhelyezését végző metódus
     @Override
     public void spawnFruit() {
         Random rand = new Random();
@@ -17,14 +19,14 @@ public class Orange extends Fruit {
         location.setLocation(x, y);
     }
 
-
+    // A narancsot kirajzoló metódus
 	@Override
     public void draw(Graphics g) {
 		g.setColor(new Color(255, 128, 0));
         g.fillOval(location.x, location.y, SnakeGame.UNIT_SIZE, SnakeGame.UNIT_SIZE);
         
     }
-    
+	// A narancs típusát visszaadó metódus
     @Override
     public int gettype() {
     	return 4;

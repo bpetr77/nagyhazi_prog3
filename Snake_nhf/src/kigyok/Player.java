@@ -28,6 +28,7 @@ public class Player implements Serializable{
 		this.score = score;
 	}
 	
+	// új játékost inicializál(új játéknál kell)
 	public void newPlayer(){
 		name = "";
 		score = 0;

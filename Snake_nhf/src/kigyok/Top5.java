@@ -11,8 +11,16 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class Top5 implements Serializable {
-	private static final String TOP5_FILENAME = "valami.dat";
-    
+	private static String TOP5_FILENAME = "valami.dat";
+	
+	public static void setfilename(String name) {
+		TOP5_FILENAME = name;
+	}
+	
+	/**
+	 * Frissíti a top 5 játékost a megadott játékossal. A top 5 listát beolvassa, hozzáadja a jelenlegi játékost,
+	 * majd a játékosok pontszámának csökkenő sorrendjében rendezve elmenti a frissített listát.
+	 */
     public static void updateTop5(Player currentPlayer) {
         List<Player> top5 = readTop5FromFile();
         top5.add(currentPlayer);
@@ -23,7 +31,11 @@ public class Top5 implements Serializable {
         
         writeTop5ToFile(top5);
     }
-
+    
+    /**
+     * be olvassa a top 5 játékost tartalmazó fájlt és visszaadja a listát.
+     * @return Az olvasott top 5 játékosok listája vagy üres lista, ha a beolvasás során hiba történik
+     */
     public static ArrayList<Player> readTop5FromFile() {
         try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(TOP5_FILENAME))) {
             // Cast-oljuk vissza az ArrayList-re
@@ -32,8 +44,11 @@ public class Top5 implements Serializable {
             return new ArrayList<>();
         }
     }
-
-    private static void writeTop5ToFile(List<Player> top5) {
+    
+    /**
+     * Az aktuális top 5 játékost tartalmazó listát írja ki a TOP5_FILENAME fájlba.
+     */
+    public static void writeTop5ToFile(List<Player> top5) {
         try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(TOP5_FILENAME))) {
             // ArrayList-et használunk helyette
             outputStream.writeObject(new ArrayList<>(top5));

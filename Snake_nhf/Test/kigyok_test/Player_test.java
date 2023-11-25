@@ -35,7 +35,12 @@ public class Player_test {
         assertEquals(100, player.getScore());
     }
 
-
+    @Test
+    public void testnewplayer() {
+    	player.newPlayer();
+        assertEquals("", player.getName());
+        assertEquals(0, player.getScore());
+    }
 
 
 }

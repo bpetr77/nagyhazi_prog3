@@ -17,7 +17,9 @@ public class Snake {
 		direction = 'U'; // Kezdetben a kígyó felfelé néz
 		initBody();
 	}
-
+	public char getDirection() {
+		return direction;
+	}
 	public Point getbodyidx(int idx) {
 		if (idx < body.size()) {
 			return body.get(idx);
@@ -29,21 +31,19 @@ public class Snake {
 	public ArrayList<Point> getBody() {
 		return body;
 	}
-
+	// Kezdetben a kígyó a képernyő közepén lesz, és 3 testrész inicializálása
 	public void initBody() {
-		// Kezdetben a kígyó a képernyő közepén lesz
 		int x = SnakeGame.SCREEN_WIDTH / (2 * SnakeGame.UNIT_SIZE) * SnakeGame.UNIT_SIZE;
 		int y = SnakeGame.SCREEN_HEIGHT / (2 * SnakeGame.UNIT_SIZE) * SnakeGame.UNIT_SIZE;
 
-		// 3 testrész inicializálása
 		for (int i = 0; i < length; i++) {
 			Point point = new Point(x, y + i * SnakeGame.UNIT_SIZE);
 			body.add(point);
 		}
 	}
-
+	
+	// A kígyó mozgása a jelenlegi irányba, ahol az uj fej a régi fej + 1 blokk a jelenlegi irányba, és az utolsó testrész törlődik
 	public void move() {
-		// A kígyó mozgása a jelenlegi irányba
 		Point head = body.get(0);
 		Point newHead = new Point(head);
 
@@ -75,8 +75,8 @@ public class Snake {
 		length++;
 	}
 
+	// a kígyó kirajzolása ahol a fej és a testrészek eltérő árnyalatú zöldek
 	public void draw(Graphics g) {
-		// Rajzoljuk meg a kígyót
 		Point head = body.get(0);
 		for (Point p : body) {
 			if (p.equals(head)) {
@@ -88,9 +88,8 @@ public class Snake {
 			}
 		}
 	}
-
+	// Irány beállítása, de ne engedjük meg az ellenkező irányba való változtatást (180 fokos változást)
 	public void setDirection(char newDirection) {
-		// Irány beállítása, de ne engedjük meg az ellenkező irányba való változtatást
 		if (newDirection == 'U' && direction != 'D')
 			direction = newDirection;
 		else if (newDirection == 'D' && direction != 'U')

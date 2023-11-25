@@ -15,29 +15,17 @@ public class Walls {
 	public ArrayList<Point> getWalls() {
 		return walls;
 	}
-	/*public void initwalls() {
-		int x = SnakeGame.UNIT_SIZE;
-		int y = SnakeGame.UNIT_SIZE;
-
-		for(int sor = 0; sor < SnakeGame.SCREEN_WIDTH / SnakeGame.UNIT_SIZE; sor++) {
-			for (int oszlop = 0; oszlop <SnakeGame.SCREEN_HEIGHT / SnakeGame.UNIT_SIZE; oszlop++) {
-				if(sor == 2 && oszlop == 2) {
-				Point point = new Point(x, y + i * SnakeGame.UNIT_SIZE);
-				walls.add(point);
-				}
-			}
-		}row != SnakeGame.SCREEN_HEIGHT / SnakeGame.UNIT_SIZE / 2 &&
-	}*/
+	
 	public void initwalls() {
-        Random random = new Random();
-        for (int row = 0; row < SnakeGame.SCREEN_HEIGHT / SnakeGame.UNIT_SIZE; row++) {
-            for (int col = 0; col < SnakeGame.SCREEN_WIDTH / SnakeGame.UNIT_SIZE; col++) {
-            	if(col != SnakeGame.SCREEN_WIDTH / SnakeGame.UNIT_SIZE / 2 || row != SnakeGame.SCREEN_HEIGHT / SnakeGame.UNIT_SIZE / 2) {
-                if (random.nextDouble() < 0.01) {
-                	Point point = new Point((col * SnakeGame.UNIT_SIZE), (row * SnakeGame.UNIT_SIZE));
-                	walls.add(point);
-                }
-            }
+	        Random random = new Random();
+	        for (int row = 0; row < SnakeGame.SCREEN_HEIGHT / SnakeGame.UNIT_SIZE; row++) {
+	            for (int col = 0; col < SnakeGame.SCREEN_WIDTH / SnakeGame.UNIT_SIZE; col++) {
+	            	if(col != SnakeGame.SCREEN_WIDTH / SnakeGame.UNIT_SIZE / 2 || row != SnakeGame.SCREEN_HEIGHT / SnakeGame.UNIT_SIZE / 2) {
+	                if (random.nextDouble() < 0.01) {
+                		Point point = new Point((col * SnakeGame.UNIT_SIZE), (row * SnakeGame.UNIT_SIZE));
+                		walls.add(point);
+                	}
+            	}
             }
         }
     }

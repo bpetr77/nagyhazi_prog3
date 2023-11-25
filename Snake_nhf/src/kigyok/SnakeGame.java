@@ -18,19 +18,20 @@ import javax.swing.Timer;
 
 public class SnakeGame extends JPanel implements ActionListener{
 
-	public static int SCREEN_WIDTH = 600;
-	public static int SCREEN_HEIGHT = 600;
-	public static int UNIT_SIZE = 25;
+	public static final int SCREEN_WIDTH = 600;
+	public static final int SCREEN_HEIGHT = 600;
+	public static final int UNIT_SIZE = 25;
 	boolean fruitEaten = true;
 	boolean gameOver = false;
-	Walls walls;
-	Fruit fruit;
-	Snake snake;
-	Player player;
-	JFrame frame;
+	private Walls walls;
+	private Fruit fruit;
+	private Snake snake;
+	private Player player;
+	private JFrame frame;
 	private int speed = 100;
-	Timer timer;
+	private Timer timer;
 	private boolean titelOver = false;
+	
     public SnakeGame(JFrame frame, Player player1) {
     	this.frame = frame;
     	walls = new Walls();
@@ -44,12 +45,21 @@ public class SnakeGame extends JPanel implements ActionListener{
         timer = new Timer(speed, this);
         timer.start();
     }
-    
+    /**
+     * Az ütközéseket ellenőrző függvény. Ellenőrzi, hogy a kígyó feje ütközik-e a falakkal, önmagával,
+     * vagy elfogyaszt-e gyümölcsöt. Az ütközés esetén a játéknak vége.
+     */
     public void checkCollision() {
     	Point head = snake.getbodyidx(0);
     	if(head != null) {
+    		
+    		// Ellenőrzi, hogy a kígyó feje érinti-e a gyümölcs pozícióját
     		if (head.equals(fruit.getLocation())) {
+    			
+    			// Gyümölcs típusa alapján végrehajtja a megfelelő műveleteket		
     			switch (fruit.gettype()) {
+    			
+    			// Alma esetén növeli a kígyót, frissíti a pontszámot,és új gyümölcsöt spawnol
 	    		    case 1:
 	    		        snake.grow();
 	    		        spawnFruit();
@@ -58,6 +68,8 @@ public class SnakeGame extends JPanel implements ActionListener{
 	    		        speed = 100;
 	    		        break;
     		    
+	                    // Barack esetén kétszer növeli a kígyót, frissíti a pontszámot,
+	                    // és új gyümölcsöt spawnol
 	    		    case 2:
 	    		        snake.grow();
 	    		        snake.grow();
@@ -67,6 +79,8 @@ public class SnakeGame extends JPanel implements ActionListener{
 	    		        speed = 100;
 	    		        break;
     		    
+	    		        // citrom esetén a kígyó hosszát felezi, ha páratlan akkor eredeti hossz + 1 / 2,
+	                    // frissíti a pontszámot, és új gyümölcsöt spawnol
 	    		    case 3:
 	    		        int newLength;
 	    		        if (snake.getLength() % 2 == 0) {
@@ -86,6 +100,8 @@ public class SnakeGame extends JPanel implements ActionListener{
 	    		        speed = 100;
 	    		        break;
 	    		    
+	                    // Narancs esetén növeli a kígyót, frissíti a pontszámot,
+	                    // és növeli a kígyó sebességét
 	    		    case 4:
 	    		        snake.grow();
 	    		        spawnFruit();
@@ -99,19 +115,20 @@ public class SnakeGame extends JPanel implements ActionListener{
     			}
         	}
     		
+    		// Ellenőrzi, hogy a kígyó feje elérte-e a játékteret határoló falakat
     		if(head.x == SCREEN_WIDTH || head.y == SCREEN_HEIGHT || head.x < 0 || head.y < 0) {
     			gameOver = true; 
     		}
     		
+    		// Ellenőrzi, hogy a kígyó feje ütközik-e a saját testével
     		for(int i = 1; i < snake.getBody().size(); i++) {
     			Point bodyPart = snake.getbodyidx(i);
     			if(head.equals(bodyPart))
-    				//System.exit(0);
     				gameOver = true; 
     				//System.out.println("Collision detected! Head: " + head + ", Body Part: " + bodyPart);
     			
     		}
-    		
+    		// Ellenőrzi, hogy a kígyó feje ütközik-e a falakkal
     		for(int i = 0; i < walls.getWalls().size(); i++) {
     			Point wall = walls.getwallidx(i);
     			if(head.equals(wall))
@@ -119,7 +136,12 @@ public class SnakeGame extends JPanel implements ActionListener{
     	}
     }
     }
-    
+    /**
+     * Gyümölcs spawnolását végző függvény. Ha a kígyó elfogyasztotta a gyümölcsöt,
+     * véletlenszerűen választ egy új gyümölcs típust, majd elhelyezi azt a játéktéren.
+     * Ellenőrzi, hogy a gyümölcs nem ütközik falakkal, és újat választ addig, amíg nem
+     * helyezkedik el olyan területen, ahol nincs fal.
+     */
     public void spawnFruit() {
     	if(fruitEaten) {
         Random rand = new Random();
@@ -149,9 +171,14 @@ public class SnakeGame extends JPanel implements ActionListener{
     	snake.move();
     	checkCollision();
         repaint(); 
-        //System.out.println(titelOver);
     }
 
+    /**
+     * A játékteret kirajzoló függvény, ami felülírja a JPanel osztály paintComponent metódusát.
+     * Az if-else ágak alapján kezeli a játék aktuális állapotát: ha még nincs vége a játéknak, kirajzolja
+     * a gyümölcsöt, a kígyót, a falakat és a játékos pontszámát. Ha vége a játéknak de még nem volt kirajzolva a game over felirat, akkor kirajzolja
+     * a "Game Over" feliratot, majd frissíti a legjobb 5 játékos listát. Ha a game over feliratnak is vége akkor várunk 2 másodpercet és vissza térünk a menübe
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -205,6 +232,9 @@ public class SnakeGame extends JPanel implements ActionListener{
     
     
     public class MyKeyAdapter extends KeyAdapter{
+      /**
+        * A lenyomott billentyűk kódjainak kezelése alapján beállítja a kígyó irányát.
+        */
     @Override
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();

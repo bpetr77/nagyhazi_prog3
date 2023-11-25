@@ -16,10 +16,13 @@ public abstract class Fruit {
     public Point getLocation() {
         return location;
     }
-
+    //Az gyümölcs véletlenszerű pozícióját beállító metódus.
+    //A pozíció a SnakeGame ablak méretéhez és a játék egység méretéhez van igazítva.
     public abstract void spawnFruit();
 
+    //Gyümölcs kirajzolása
     public abstract void draw(Graphics g);
     
+    //Gyümölcs típúsa
     public abstract int gettype();
 }
