@@ -16,6 +16,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import kigyok.SnakeGame.MyKeyAdapter;
+
+/**
+ * A Snake játékot reprezentáló osztály.
+ */
 public class SnakeGame extends JPanel implements ActionListener{
 
 	public static final int SCREEN_WIDTH = 600;
@@ -32,6 +37,13 @@ public class SnakeGame extends JPanel implements ActionListener{
 	private Timer timer;
 	private boolean titelOver = false;
 	
+    /**
+     * Konstruktor, inicializálja a játék elemeit, példányosítja a kígyót, falakat és gyümölcsöt.
+     * Beállítja a játék sebességét, és elindítja a timert.
+     *
+     * @param frame   A játékot tartalmazó JFrame.
+     * @param player1 Az aktuális játékos adatait tartalmazó Player objektum.
+     */
     public SnakeGame(JFrame frame, Player player1) {
     	this.frame = frame;
     	walls = new Walls();
@@ -136,6 +148,7 @@ public class SnakeGame extends JPanel implements ActionListener{
     	}
     }
     }
+    
     /**
      * Gyümölcs spawnolását végző függvény. Ha a kígyó elfogyasztotta a gyümölcsöt,
      * véletlenszerűen választ egy új gyümölcs típust, majd elhelyezi azt a játéktéren.
@@ -230,7 +243,9 @@ public class SnakeGame extends JPanel implements ActionListener{
   
     }
     
-    
+    /**
+     * A billentyűzet eseményeit kezelő belső osztály, ami a KeyAdaptertől származik.
+     */
     public class MyKeyAdapter extends KeyAdapter{
       /**
         * A lenyomott billentyűk kódjainak kezelése alapján beállítja a kígyó irányát.

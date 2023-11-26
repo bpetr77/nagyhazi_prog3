@@ -1,21 +1,28 @@
 package kigyok;
 
 import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.LayoutManager;
-import java.util.LinkedList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
 
+/**
+ * A kezdőképernyőt megjelenítő panelt reprezentáló osztály. Tartalmaz gombokat a játék indításához,
+ * a Top5 játékos megjelenítéséhez, valamint a játék bezárásához. A panelen a játékos nevét is meg kell adnia
+ * a játék indítása előtt.
+ */
 public class MenuPanel extends JPanel {
 	private JTextField nameField = new JTextField(20);
-	
+    /**
+     * Az osztály konstruktora. Inicializálja a panel összes komponensét, gombokat, és beállítja azok megjelenését.
+     * A gombokhoz ActionListener-eket rendel, amelyek meghívják a megfelelő metódusokat.
+     *
+     * @param frame A fő JFrame, amelyhez a panel hozzá lesz adva.
+     * @param player A játékos objektum, amely tartalmazza a játékos nevét.
+     */
 	public MenuPanel(JFrame frame, Player player) {
 		 setBackground(new Color(170, 255, 228));
 
@@ -75,9 +82,13 @@ public class MenuPanel extends JPanel {
     Caption.setBounds (210, 30, 235, 65);
 	}
 	
-	/**
-	 * A játék indítását végző metódus. Létrehozunk egy új SnakeGamet, majd eltávolítunk mindent a tábláról, hozzáadjuk a játékot.
-	 */
+    /**
+     * A játék indítását végző metódus. Beállítja a játékos nevét, létrehoz egy új SnakeGame-t,
+     * majd hozzáadja a játékot a fő JFrame-hez.
+     *
+     * @param frame  A fő JFrame, amelyhez a játék hozzá lesz adva.
+     * @param player A játékos objektum, amely tartalmazza a játékos nevét.
+     */
     private void startGame(JFrame frame, Player player) {
     	player.setName(nameField.getText());
         SnakeGame snakeGame = new SnakeGame(frame,player);
@@ -88,7 +99,12 @@ public class MenuPanel extends JPanel {
         snakeGame.requestFocusInWindow();
     }
     
-    //Top 5 játékos megjelenítése, egy új panel létrehozásával
+    /**
+     * A Top5 játékosokat megjelenítő metódus. Létrehoz egy új Top5Panel-t,
+     * majd hozzáadja azt a fő JFrame-hez.
+     *
+     * @param frame A fő JFrame, amelyhez a Top5 panel hozzá lesz adva.
+     */
     private void showTop5(JFrame frame) {
         Top5panel top5Panel = new Top5panel();
         top5Panel.showTop5(frame);  // Az adatok megjelenítése a Top5Panel objektumban
@@ -102,4 +118,3 @@ public class MenuPanel extends JPanel {
     
 
     }
-

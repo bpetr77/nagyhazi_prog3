@@ -10,17 +10,28 @@ import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/**
+ * A Top5 osztály kezeli a legjobb 5 játékos adatait, beleértve az olvasást és írást is a fájlba.
+ */
 public class Top5 implements Serializable {
 	private static String TOP5_FILENAME = "valami.dat";
 	
+    /**
+     * Beállítja a top 5 játékosokat tartalmazó fájl nevét.
+     *
+     * @param name A fájl neve.
+     */
 	public static void setfilename(String name) {
 		TOP5_FILENAME = name;
 	}
 	
-	/**
-	 * Frissíti a top 5 játékost a megadott játékossal. A top 5 listát beolvassa, hozzáadja a jelenlegi játékost,
-	 * majd a játékosok pontszámának csökkenő sorrendjében rendezve elmenti a frissített listát.
-	 */
+
+    /**
+     * Frissíti a top 5 játékost a megadott játékossal. A top 5 listát beolvassa, hozzáadja a jelenlegi játékost,
+     * majd a játékosok pontszámának csökkenő sorrendjében rendezve elmenti a frissített listát.
+     *
+     * @param currentPlayer Az aktuális játékos, akit hozzáadunk a top 5 listához.
+     */
     public static void updateTop5(Player currentPlayer) {
         List<Player> top5 = readTop5FromFile();
         top5.add(currentPlayer);
@@ -33,8 +44,9 @@ public class Top5 implements Serializable {
     }
     
     /**
-     * be olvassa a top 5 játékost tartalmazó fájlt és visszaadja a listát.
-     * @return Az olvasott top 5 játékosok listája vagy üres lista, ha a beolvasás során hiba történik
+     * Beolvassa a top 5 játékost tartalmazó fájlt és visszaadja a listát.
+     *
+     * @return Az olvasott top 5 játékosok listája vagy üres lista, ha a beolvasás során hiba történik.
      */
     public static ArrayList<Player> readTop5FromFile() {
         try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(TOP5_FILENAME))) {
@@ -47,6 +59,8 @@ public class Top5 implements Serializable {
     
     /**
      * Az aktuális top 5 játékost tartalmazó listát írja ki a TOP5_FILENAME fájlba.
+     *
+     * @param top5 A top 5 játékosok listája.
      */
     public static void writeTop5ToFile(List<Player> top5) {
         try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(TOP5_FILENAME))) {

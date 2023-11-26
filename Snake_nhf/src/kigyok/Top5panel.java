@@ -5,8 +5,16 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+/**
+ * A Top5panel osztály megjeleníti a legjobb 5 játékos eredményeit egy JPanel-en.
+ */
 public class Top5panel extends JPanel {
 
+    /**
+     * A Top5panel konstruktora, ami inicializálja és megjeleníti a legjobb 5 játékos eredményét.
+     *
+     * @param frame Az aktuális JFrame, amelyen a panel megjelenik.
+     */
 	 public void showTop5(JFrame frame) {
 	        ArrayList<Player> top5Players = Top5.readTop5FromFile();
 	        setBackground(new Color(170, 255, 228));
@@ -68,6 +76,21 @@ public class Top5panel extends JPanel {
 	        	// ha még nincs 5 eredmény akkor nem jelenít meg egyet sem amíg nem lesz 5
 	        	JLabel warning = new JLabel("There isn't enought result");
 	        	add(warning);
+	        	
+		        JButton backButton = new JButton ("Back");
+		        
+		        // Betűméret/stílus beállítása
+		        Font backbuttonFont = new Font(Font.SERIF, Font.BOLD, 21);
+		        backButton.setBackground(new Color(1, 205, 96));
+		        add(backButton);
+		        
+	            backButton.addActionListener(e -> {
+	                // A backButton-ra kattintva visszatér a MenuPanel-re
+	                frame.getContentPane().removeAll();
+	                frame.getContentPane().add(new MenuPanel(frame, new Player()));
+	                frame.getContentPane().revalidate();
+	                frame.getContentPane().repaint();
+	            });
 	        }
 	    }
 	} 

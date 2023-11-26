@@ -5,13 +5,25 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * A Walls osztály reprezentálja a játékban szereplő falakat.
+ */
 public class Walls {
 	private ArrayList<Point> walls;
 	
+    /**
+     * Walls osztály konstruktora, inicializálja a falak listáját, majd létrehozza és elhelyezi a falakat.
+     */
 	public Walls() {
 		walls = new ArrayList<>();
 		initwalls();
 	}
+	
+    /**
+     * Visszaadja a falak listáját.
+     *
+     * @return A falak listája.
+     */
 	public ArrayList<Point> getWalls() {
 		return walls;
 	}
@@ -34,10 +46,13 @@ public class Walls {
             }
         }
     }
-	
-	/**
-	 * Ellenőrzi, hogy a megadott pont(gyümölcs) ütközik-e valamely fallal.
-	 */
+
+    /**
+     * Ellenőrzi, hogy a megadott pont (gyümölcs) ütközik-e valamely falponttal.
+     *
+     * @param point Az ellenőrizni kívánt pont.
+     * @return Igaz, ha ütközik falponttal, különben hamis.
+     */
 	public boolean Fruitcollide(Point point) {
         for (Point wall : walls) {
             if (wall.equals(point)) {
@@ -47,7 +62,11 @@ public class Walls {
         return false;
     }
 	
-	//fal kirajzolása
+    /**
+     * Kirajzolja a falakat a megadott Graphics objektum segítségével.
+     *
+     * @param g A Graphics objektum, amellyel rajzolni lehet.
+     */
 	public void draw(Graphics g) {
 		for (Point p : walls) {
 				g.setColor(new Color(61, 35, 0));
@@ -55,7 +74,12 @@ public class Walls {
 		}
 	}
 	
-	//Visszaadja a falak listájában az adott indexen található falpontot.
+    /**
+     * Visszaadja a falak listájában az adott indexen található falat.
+     *
+     * @param idx Az index, amelyen található falat vissza szeretnénk kapni.
+     * @return A falpont az adott indexen, vagy null, ha az index érvénytelen.
+     */
 	public Point getwallidx(int idx) {
 		if (idx < walls.size()) {
 			return walls.get(idx);
@@ -63,6 +87,4 @@ public class Walls {
 			return null;
 		}
 	}
-	
-	
 }

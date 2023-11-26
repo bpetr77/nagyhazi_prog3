@@ -4,10 +4,16 @@ import java.awt.Color;
 import java.awt.Dimension;
 
 import javax.swing.JFrame;
-
+/**
+ * A Snake játék ablakát reprezentáló osztály. Inicializálja az ablak alapvető tulajdonságait,
+ * létrehozza a játékos objektumot, és hozzáadja a kezdőképernyőt megjelenítő MenuPanel-t a JFrame-hez.
+ */
 public class GameFrame extends JFrame {
 
-	// Az osztály konstruktora, ami beállítja az ablak alapvető tulajdonságait
+	/**
+     * Az osztály konstruktora, inicializálja az ablak tulajdonságait, létrehozza a játékos objektumot,
+     * és hozzáadja a kezdőképernyőt megjelenítő MenuPanel-t a JFrame-hez.
+     */
 	GameFrame() {
 		Dimension screenSize = new Dimension(617, 637);
 		JFrame frame = new JFrame();
